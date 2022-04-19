@@ -1,39 +1,38 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
+from .. import db
+from main.models import CalificacionModel
 
-
-CALIFICACION = {
-    1: {'stars': '5 stars', 'calificacion':'ta bueno'},
-    2: {'stars': '3 stars',  'calificacion':'neeee hay mejores'},
-}
 
 
 class Calificacion(Resource):
     def get(self, id):
-        if int(id) in CALIFICACION:
-            return CALIFICACION[int(id)]
-        return '', 404
+        calificacion = db.session.query(CalificacionModel).get_or_404(id)
+        return calificacion.to_json()
 
     def delete(self, id):
-        if int(id) in CALIFICACION:
-            del CALIFICACION[int(id)]
-            return '', 204
-        return '', 404
+         calificacion = db.session.query(CalificacionModel).get_or_404(id)
+         db.session.delete(calificacion)
+         db.session.commit()
+         return '', 204
     
     def put(self, id):
-        if int(id) in CALIFICACION:
-            calificacion = CALIFICACION[int(id)]
-            data = request.get_json()
-            calificacion.update(data)
-            return calificacion, 201
-        return '', 404
+        calificacion = db.session.query(CalificacionModel).get_or_404(id)
+        data = request.get_json().items()
+        for key, value in data:
+            setattr(calificacion, key, value)
+        db.session.add(calificacion)
+        db.session.commit()
+        return calificacion.to_json() , 201
 
 class Calificaciones(Resource):
     def get(self):
-        return CALIFICACION
+        calificaciones = db.session.query(CalificacionModel).all()
+        return jsonify([calificacion.to_json() for calificacion in calificaciones])
+
    
     def post(self):
-        calificacion = request.get_json()
-        id = int(max(CALIFICACION.keys())) + 1
-        CALIFICACION[id] = calificacion
-        return CALIFICACION[id], 201
+        calificacion = CalificacionModel.from_json(request.get_json())
+        db.session.add(calificacion)
+        db.session.commit()
+        return calificacion.to_json(), 201
