@@ -48,10 +48,10 @@ class Poemas(Resource):
                     if key == "created[lt]":
                          poemas = poemas.filter(PoemaModel.date <= datetime.strptime(value, '%d-%m-%Y'))                    
                     if key == "sort_by":
-                         if value == "qualifications":
-                              poemas = poemas.outerjoin(PoemaModel.qualifications).group_by(PoemaModel.id).order_by(func.avg(PoemaModel.score))
-                         if value == "qualifications[desc]":
-                              poemas = poemas.outerjoin(PoemaModel.qualifications).group_by(PoemaModel.id).order_by(func.avg(PoemaModel.score).desc())
+                         if value == "calificaciones":
+                              poemas = poemas.outerjoin(PoemaModel.calificaciones).group_by(PoemaModel.id).order_by(func.avg(PoemaModel.score))
+                         if value == "calificaciones[desc]":
+                              poemas = poemas.outerjoin(PoemaModel.calificaciones).group_by(PoemaModel.id).order_by(func.avg(PoemaModel.score).desc())
                          if value == "usuario":
                               poemas = poemas.order_by(PoemaModel.usuario)
                          if value == "usuario[desc]":
