@@ -4,21 +4,21 @@ from .. import db
 from main.models import PoemaModel
 from datetime import *
 from sqlalchemy import func
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from main.auth.decorators import admin_required
+from flask_jwt_extended import jwt_required
+
 
 class Poema(Resource):
-     @jwt_required
+     #@jwt_required()
      def get(self, id):
          poema = db.session.query(PoemaModel).get_or_404(id)
          return poema.to_json()
-     @jwt_required
+     #@jwt_required()
      def delete(self, id):
          poema = db.session.query(PoemaModel).get_or_404(id)
          db.session.delete(poema)
          db.session.commit()
          return '', 204
-     @jwt_required
+     #@jwt_required()
      def put(self, id):
          poema = db.session.query(PoemaModel).get_or_404(id)
          data = request.get_json().items()
@@ -29,7 +29,7 @@ class Poema(Resource):
          return poema.to_json() , 201
 
 class Poemas(Resource):
-     @jwt_required
+     #@jwt_required()
      def get(self):
           page = 1
           
@@ -68,7 +68,7 @@ class Poemas(Resource):
                     
           poemas = poemas.paginate(page, per_page, False, 30)
           return jsonify({
-               "poemas" : [poema.to_json_short() for poema in poemas.items],
+               "poemas" : [poema.to_json() for poema in poemas.items],
                "total" : poemas.total,
                "pages" : poemas.pages,
                "page" : page
@@ -80,7 +80,7 @@ class Poemas(Resource):
          #poemas = db.session.query(PoemaModel).all()
          #return jsonify([poema.to_json() for poema in poemas])
 
-     @jwt_required
+     #@jwt_required()
      def post(self):
          poema = PoemaModel.from_json(request.get_json())
          db.session.add(poema)

@@ -2,21 +2,21 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import CalificacionModel
-
+from flask_jwt_extended import jwt_required
 
 
 class Calificacion(Resource):
-    @jwt_required
+    #@jwt_required()
     def get(self, id):
         calificacion = db.session.query(CalificacionModel).get_or_404(id)
         return calificacion.to_json()
-    @jwt_required
+    #@jwt_required()
     def delete(self, id):
          calificacion = db.session.query(CalificacionModel).get_or_404(id)
          db.session.delete(calificacion)
          db.session.commit()
          return '', 204
-    @jwt_required
+    #@jwt_required()
     def put(self, id):
         calificacion = db.session.query(CalificacionModel).get_or_404(id)
         data = request.get_json().items()
@@ -27,7 +27,7 @@ class Calificacion(Resource):
         return calificacion.to_json() , 201
 
 class Calificaciones(Resource):
-    @jwt_required
+    #@jwt_required()
     def get(self):
         page = 1
         per_page = 10
@@ -64,16 +64,16 @@ class Calificaciones(Resource):
                         poema = poema.order_by(CalificacionModel.poema_id.desc())
                         
                 
-        Calificaciones = Calificaciones.paginate(page, per_page, False, 30)
+        Calificaciones = Calificaciones.paginate(page, per_page, True, 30)
         return jsonify({
-            "poemas" : [Calificaciones.to_json_short() for calificacion in Calificaciones.items],
+            "calificaciones" : [calificaciones.to_json() for calificaciones in Calificaciones.items],
             "total" : Calificaciones.total,
             "pages" : Calificaciones.pages,
             "page" : page
             
             })
 
-    @jwt_required
+    #@jwt_required()
     def post(self):
         calificacion = CalificacionModel.from_json(request.get_json())
         db.session.add(calificacion)

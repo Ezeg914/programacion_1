@@ -6,7 +6,7 @@ class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     nombre = db.Column(db.String(100), nullable = False)
     password = db.Column(db.String(100), unique=True, index=True, nullable = False)
-    rol = db.Column(db.String(100), nullable = False, default="usuario"))
+    rol = db.Column(db.String(100), nullable = False, default="usuario")
     email = db.Column(db.String(100), nullable = False)
     
     poema = db.relationship("Poema", back_populates="usuario",cascade="all, delete-orphan")
@@ -42,10 +42,12 @@ class Usuario(db.Model):
     
     def to_json_short(self):
         usuario_json = {
+            'nombre': self.nombre,
             'id': self.id,
             'email': str(self.email)
         }
-    
+        return usuario_json
+
     @staticmethod
     def from_json(usuario_json):
         id = usuario_json.get('id')
@@ -55,7 +57,7 @@ class Usuario(db.Model):
         email = usuario_json.get('email')
         return Usuario(id=id,
                     nombre=nombre,
-                    plain_passwor=password,
+                    password=password,
                     rol=rol,
                     email=email
                     )

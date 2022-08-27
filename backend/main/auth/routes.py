@@ -11,6 +11,7 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     #Busca al profesor en la db por mail
     usuario = db.session.query(UsuarioModel).filter(UsuarioModel.email == request.get_json().get("email")).first_or_404()
+    
     #Valida la contraseña
     if usuario.validate_pass(request.get_json().get("password")):
         #Genera un nuevo token
@@ -26,3 +27,4 @@ def login():
         return data, 200
     else:
         return 'Incorrect password', 401
+        

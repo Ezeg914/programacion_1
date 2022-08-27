@@ -23,9 +23,20 @@ class Calificacion(db.Model):
             'puntaje': int(self.puntaje),
             'comentario': str(self.comentario),
             'usuario_id': self.usuario.to_json(),
-            'poema_id': self.poema.to_json()
+            'poema_id': self.poema.to_json_short()
         }
         return calificacion_json
+    
+    def to_json_short(self):
+        calificacion_json = {
+            'id': self.id,
+            'puntaje': int(self.puntaje),
+            'comentario': str(self.comentario),
+            'usuario_id': self.usuario.to_json(),
+            'poema_id': self.poema.to_json_short()
+        }
+        return calificacion_json
+
     
     @staticmethod
     def from_json(calificacion_json):
