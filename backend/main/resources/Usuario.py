@@ -2,25 +2,31 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import UsuarioModel
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import admin_required
-
+from main.mail.functions import sendMail
 
 
 class Usuario(Resource):
-    #@jwt_required()
+    @jwt_required()
     def get(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
-        return usuario.to_json()
+        identity = get_jwt_identity()
+        if identity:
+            return usuario.to_json()
+        else:
+            return usuario.to_json_short()
     
-    #@jwt_required()
+    @admin_required
+    @jwt_required()
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         db.session.delete(usuario)
         db.session.commit()
         return '', 204
     
-    #@jwt_required()
+    @admin_required
+    @jwt_required()
     def put(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         data = request.get_json().items()
@@ -31,7 +37,7 @@ class Usuario(Resource):
         return usuario.to_json() , 201
 
 class Usuarios(Resource):
-    #@admin_required
+    @admin_required
     def get(self):
         page = 1
         per_page = 10
@@ -57,7 +63,7 @@ class Usuarios(Resource):
         
         usuarios = usuarios.paginate(page, per_page, True, 30)
         return jsonify({
-            "poemas" : [usuarios.to_json_short() for usuarios in usuarios.items],
+            "usuarios" : [usuarios.to_json_short() for usuarios in usuarios.items],
             "total" : usuarios.total,
             "pages" : usuarios.pages,
             "page" : page
@@ -69,4 +75,5 @@ class Usuarios(Resource):
         usuario = UsuarioModel.from_json(request.get_json())
         db.session.add(usuario)
         db.session.commit()
+        sendMail(usuario.email, 'Bienvenido!', 'mail/poema', usuario=usuario)
         return usuario.to_json(), 201

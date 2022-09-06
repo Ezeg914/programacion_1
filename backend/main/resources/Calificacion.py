@@ -3,20 +3,23 @@ from flask import request, jsonify
 from .. import db
 from main.models import CalificacionModel
 from flask_jwt_extended import jwt_required
+from main.auth.decorators import admin_required
 
 
 class Calificacion(Resource):
-    #@jwt_required()
+    @jwt_required()
     def get(self, id):
         calificacion = db.session.query(CalificacionModel).get_or_404(id)
         return calificacion.to_json()
-    #@jwt_required()
+    
+    @admin_required
+    @jwt_required()
     def delete(self, id):
          calificacion = db.session.query(CalificacionModel).get_or_404(id)
          db.session.delete(calificacion)
          db.session.commit()
          return '', 204
-    #@jwt_required()
+    @jwt_required()
     def put(self, id):
         calificacion = db.session.query(CalificacionModel).get_or_404(id)
         data = request.get_json().items()
@@ -27,7 +30,7 @@ class Calificacion(Resource):
         return calificacion.to_json() , 201
 
 class Calificaciones(Resource):
-    #@jwt_required()
+    @jwt_required()
     def get(self):
         page = 1
         per_page = 10
@@ -73,7 +76,7 @@ class Calificaciones(Resource):
             
             })
 
-    #@jwt_required()
+    @jwt_required()
     def post(self):
         calificacion = CalificacionModel.from_json(request.get_json())
         db.session.add(calificacion)

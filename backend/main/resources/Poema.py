@@ -4,21 +4,35 @@ from .. import db
 from main.models import PoemaModel
 from datetime import *
 from sqlalchemy import func
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required,  get_jwt_identity, get_jwt
 
 
 class Poema(Resource):
-     #@jwt_required()
+     @jwt_required()
      def get(self, id):
          poema = db.session.query(PoemaModel).get_or_404(id)
-         return poema.to_json()
-     #@jwt_required()
+         identity = get_jwt_identity()
+         if identity:
+            return poema.to_json()
+         else:
+            return poema.to_json_short()
+
+     @jwt_required()
      def delete(self, id):
-         poema = db.session.query(PoemaModel).get_or_404(id)
-         db.session.delete(poema)
-         db.session.commit()
-         return '', 204
-     #@jwt_required()
+          poema = db.session.query(PoemaModel).get_or_404(id)
+          identity = get_jwt_identity()
+        
+          jwt_data = get_jwt()
+
+          if jwt_data['rol'] == 'admin' or poema.usuario_id == identity:
+               db.session.delete(poema)
+               db.session.commit()
+               return '', 204
+          else:
+               return 'not permissions'
+
+         
+     @jwt_required()
      def put(self, id):
          poema = db.session.query(PoemaModel).get_or_404(id)
          data = request.get_json().items()
@@ -29,15 +43,19 @@ class Poema(Resource):
          return poema.to_json() , 201
 
 class Poemas(Resource):
-     #@jwt_required()
+     @jwt_required()
      def get(self):
           page = 1
           
           per_page = 10
           
           poemas = db.session.query(PoemaModel)
+          identity = get_jwt_identity()
+
           if request.get_json():
                filters = request.get_json().items()
+               if identity:
+                    poemas = db.session.query(PoemaModel).filter(PoemaModel.usuario_id == identity).order_by(PoemaModel.date.desc())
                for key, value in filters:
                     if key == "page":
                          page = int(value)
@@ -80,9 +98,11 @@ class Poemas(Resource):
          #poemas = db.session.query(PoemaModel).all()
          #return jsonify([poema.to_json() for poema in poemas])
 
-     #@jwt_required()
+     @jwt_required()
      def post(self):
-         poema = PoemaModel.from_json(request.get_json())
-         db.session.add(poema)
-         db.session.commit()
-         return poema.to_json(), 201
+          poema = PoemaModel.from_json(request.get_json())
+          identity = get_jwt_identity()
+          if poema.usuario_id == identity:
+               db.session.add(poema)
+               db.session.commit()
+               return poema.to_json(), 201
