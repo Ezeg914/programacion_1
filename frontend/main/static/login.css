@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+
+
+main {
+  display: flex;
+}
+
+
+ul{
+  list-style-type: none;
+}
+
+.login {
+    
+  background:rgb(230,192,233);
+  display: flex;
+  flex-direction: column ;
+  width: 100%;
+  max-width: 450px;
+  min-height: 100vh;
+  padding: clamp(35px, 8%, 70px);
+  transition-property: max-width;
+  transition-duration: 2s;
+}
+
+.login:hover{
+    max-width: 500px;
+}
+
+
+.card {
+    background: rgb(191,171,203); 
+    border-style:none; 
+    border-radius: 30px; 
+    padding: 10px;
+}
+
+.card-body {
+    background: rgb(141,137,166); 
+    border-style:none; 
+    border-radius: 30px; 
+    padding: 10px;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__logo {
+  width: 130px;
+  margin-bottom: 10px;
+}
+
+.login__title {
+  color: rgb(#A7A7A7);
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+.logo__title {
+    color: rgb(#A7A7A7);
+    font-size: 2.5em;
+    margin-bottom: 170px;
+  }
+  
+
+.login__label {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+
+
+
+.wallpaper {
+  height: 100vh;
+  width: 100%;
+  background-image: url('./images/wallpaper-pluma.jpg');
+  background-size: cover;
+  background-position: relative;
+  flex: 1;
+}
+
+.wallpaper:before{
+  content:'';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index:-1;
+}
