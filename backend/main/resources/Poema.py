@@ -43,19 +43,18 @@ class Poema(Resource):
          return poema.to_json() , 201
 
 class Poemas(Resource):
-     @jwt_required()
      def get(self):
           page = 1
           
           per_page = 10
           
           poemas = db.session.query(PoemaModel)
-          identity = get_jwt_identity()
+          #identity = get_jwt_identity()
 
           if request.get_json():
                filters = request.get_json().items()
-               if identity:
-                    poemas = db.session.query(PoemaModel).filter(PoemaModel.usuario_id == identity).order_by(PoemaModel.date.desc())
+               #if identity:
+               poemas = db.session.query(PoemaModel).order_by(PoemaModel.date.desc())
                for key, value in filters:
                     if key == "page":
                          page = int(value)

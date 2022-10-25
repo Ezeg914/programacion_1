@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block head %}
-
 {{ super() }}
-<link rel="stylesheet" href="../static/poema.css" type="text/css">
+<link rel="stylesheet" href="{{url_for('static',filename='upload.css')}}" type="text/css">
 {% endblock %}
 
 {% block content %}
@@ -49,27 +48,6 @@
 <body>
     <main class="d-flex flex-colum main-bg shadow">
         <div class="banner">
-            <article class="col-md-8">
-                {% for poema in poemas %}
-                    <section>
-                        <div class="card my-4 mx-4">
-                            <div class="row">
-                                
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        
-                                        <h5 class="card-title">{{poema.titulo}}</h5>
-                                        <p class="card-text">{{poema.body}}</p>
-                                        <p class="card-text"><small class="text-muted">{{poema.usuario_id.nombre}}</small></p>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    {%endfor%}
-            </article>
-     
 
 </body>
 {% endblock %}
