@@ -4,7 +4,10 @@ from .. import db
 from main.models import PoemaModel
 from datetime import *
 from sqlalchemy import func
-from flask_jwt_extended import jwt_required,  get_jwt_identity, get_jwt
+from flask_jwt_extended import jwt_required,  get_jwt_identity, get_jwt, verify_jwt_in_request
+from main.auth.decorators import admin_required
+
+
 
 
 class Poema(Resource):
@@ -101,7 +104,7 @@ class Poemas(Resource):
      def post(self):
           poema = PoemaModel.from_json(request.get_json())
           identity = get_jwt_identity()
-          if poema.usuario_id == identity:
+          if identity:
                db.session.add(poema)
                db.session.commit()
                return poema.to_json(), 201

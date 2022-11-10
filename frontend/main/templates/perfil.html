@@ -7,45 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-        <!-- LOGO -->
-        <a href="/" class="navbar-brand">
-            <img src="{{url_for('static',filename='images/pluma-logo-blanco.png')}}"  class="navbar-logo" alt="logo-menu-navegacion">
-            
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- subir poema -->
-                <li >
-                    <a class="navbtn" type="button" href="/upload_poema"><i class="fas fa-pen-nib"></i></a>
-                </li>
-                <!-- usuario -->
-                <li>
-                    <a class="navbtn" type="button" href="/usuario" ><i class="fas fa-user"></i></a>
-                </li>
-                <li>
-                    <div class="search-box">
-                    <button class="btn-search"><i class="fas fa-search"></i></button>
-                    <input type="text" class="input-search" placeholder="buscar">
-                </div>
-            </li>
-            </ul>
-            <!-- Login & Registro -->
-            <div class="d-flex">
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Registrarse
-                </button>
-                <a type="buttom" href="/login" class="btn">
-                    Iniciar sesión
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
+
 <body>
     <div class="header__wrapper">
       <header></header>
@@ -55,9 +17,9 @@
             <img src="../static/images/DSC_6652.jpg" alt="Anna Smith" />
             <span></span>
           </div>
-          <h2>Ezequiel Garcia</h2>
-          <p>poet</p>
-          <p>ezeg914@gmail.com</p>
+          <h2>{{usuario.nombre}}</h2>
+          <p>{{usuario.rol}}</p>
+          <p>{{usuario.email}}</p>
 
           <div class="content">
             <p>
@@ -74,36 +36,21 @@
             </ul>
           </div>
         </div>
-          <section>
-            <div class="card my-4 mx-4">
-                <div class="row">
-                    
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">ALINEACION</h5>
-                            <p class="card-text">Su carne sólida nunca se había alejado,
-                                pues el amanecer lo encontraba en el mismo lugar,
-                                pero cada noche su espíritu adoraba vagar
-                                por abismos y mundos distantes del día ordinario.
-                                
-                                Había visto Yaddith y conservado su juicio interior,
-                                había vuelto indemne de la Región Ghoórica,
-                                hasta que el espacio curvo fue atravesado una noche pletórica
-                                por una insistente llamada del vacío exterior.
-                                
-                                Despertó aquella mañana convertido en un anciano,
-                                y desde entonces nada ha vuelto a parecerle igual.
-                                Nebulosos, indistintos, los objetos flotan en torno a él,
-                                como el misterioso plan de fingidos fantasmas.
-                                Su familia y sus amigos son ahora una multitud extraña
-                                a la que en vano lucha por pertenecer.</p>
-                            <p class="card-text"><small class="text-muted">H.P. Lovecraft</small></p>
-                            <a href="" class="btn btn-outline-dark btn-sm">Seguir leyendo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section>
+          <div class="card my-4 mx-4">
+              <div class="row">
+                  
+                  <div class="col-md-8">
+                      <div class="card-body">
+                          
+                          <h5 class="card-title"></h5>
+                          <p class="card-text"></p>
+                          <p class="card-text"><small class="text-muted"></small></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
       </div>
     </div>
   </body>

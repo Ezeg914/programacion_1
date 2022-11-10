@@ -6,51 +6,6 @@
 {% endblock %}
 
 {% block content %}
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-                <!-- LOGO -->
-                {% if request.cookies.get('acces_token') %}
-                <a href="/" class="navbar-brand">
-                    <img src="{{url_for('static',filename='images/pluma-logo-blanco.png')}}"  class="navbar-logo" alt="logo-menu-navegacion">
-                    
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <!-- subir poema -->
-                        <li >
-                            <a class="navbtn" type="button" href="/upload_poema"><i class="fas fa-pen-nib"></i></a>
-                        </li>
-                        <!-- usuario -->
-                        <li>
-                            <a class="navbtn" type="button" href="/usuario" ><i class="fas fa-user"></i></a>
-                        </li>
-                        <li>
-                            <div class="search-box">
-                            <button class="btn-search"><i class="fas fa-search"></i></button>
-                            <input type="text" class="input-search" placeholder="buscar">
-                        </div>
-                    </li>
-                    </ul>
-                    {% else %}
-
-                    <!-- Login & Registro -->
-                    <div class="d-flex">
-                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Registrarse
-                        </button>
-                        <a type="buttom" href="/login" class="btn">
-                            Iniciar sesión
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </nav>
 
         <main class="d-flex flex-colum main-bg shadow">
             <div class="banner">
@@ -66,57 +21,13 @@
                                         <h5 class="card-title">{{poema.titulo}}</h5>
                                         <p class="card-text">{{poema.body}}</p>
                                         <p class="card-text"><small class="text-muted">{{poema.usuario_id.nombre}}</small></p>
-                                        <a href="/poema/2" class="btn btn-outline-dark btn-sm">Seguir leyendo</a>
+                                        <a href="{{url_for('main.poema_view', id=poema.id)}}" class="btn btn-outline-dark btn-sm">Seguir leyendo</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
                     {%endfor%}
-                    <section>
-                        <div class="card my-4 mx-4">
-                            <div class="row g-0">
-                                
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">A LA MUERTE</h5>
-                                        <p class="card-text">Si dentro de mi corazón hay hastío,
-                                            Si la llama de la poesía
-                                            Y el fuego del amor se hace frío,
-                                            Lacera mi carne sin cortesía.
-                                            
-                                            Rápido, sin pausa ni demora;
-                                            No dejes que el campo de mi vida se nutra
-                                            Con la ceniza de los sentimientos muertos,
-                                            Deja que tu canto fluya con ternura.</p>
-                                        <p class="card-text"><small class="text-muted">Amy Levy</small></p>
-                                        <a type="buttom" href="/poema" class="btn btn-outline-dark btn-sm">Seguir leyendo</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <div class="card my-4 mx-4">
-                            <div class="row g-0">
-                                
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">ACEITE Y SANGRE</h5>
-                                        <p class="card-text">En tumbas de oro y lapislázuli
-                                            cadáveres de santos y santas exudan
-                                            aceite milagroso, fragancia de violeta.
-                                            
-                                            Pero bajo los pesados túmulos de pisoteada arcilla
-                                            yacen cuerpos de vampiros pletóricos de sangre;
-                                            sus mortajas están ensangrentadas y sus labios, húmedos.</p>
-                                        <p class="card-text"><small class="text-muted">William Butler Yeats</small></p>
-                                        <a href="" class="btn btn-outline-dark btn-sm">Seguir leyendo</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                     <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                         <ul class="pagination">
                             <li class="page-item">
@@ -137,27 +48,4 @@
                     </nav>
                 </article>
            
-    <!-- <nav class="menu">
-            <div class="logo">
-                <img src="{{url_for('static',filename='images/pluma-logo-blanco.png')}}">
-                <h2>AUTHOR</h2>
-            </div>
-            
-            <div class="menu-area">
-                
-                <ul>
-                    <li><div class="search-box">
-                        <button class="btn-search"><i class="fas fa-search"></i></button>
-                        <input type="text" class="input-search" placeholder="buscar">
-                    </div></li>
-                    <li><a type="button" href="/"><i class="fas fa-home"></i></a></li>
-                    <li><a type="button" href="/poema"><i class="fas fa-book-open"></i></a></li>
-                    <li><a type="button" href="/upload_poema"><i class="fas fa-pen-nib"></i></a></li>
-                    <li><a type="button" href="/login"><i class="fas fa-user-plus"></i></i></a></li>
-                    <li><a type="button" href="/usuario" ><i class="fas fa-user"></i></a></li>
-                </ul>
-            </div>
-            
-        </nav> -->
-    </header>
 {% endblock %}

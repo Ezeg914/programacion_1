@@ -31,7 +31,7 @@ class Usuario(db.Model):
         usuario_json = {
             'id': self.id,
             'nombre': str(self.nombre),
-            # 'password': str(self.password),
+            #'password': str(self.password),
             'rol': str(self.rol),
             'email': str(self.email)
         }

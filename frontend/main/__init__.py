@@ -9,6 +9,8 @@ def create_app():
     app.register_blueprint(main.app)
 
 
+    app.config['API_URL'] = os.getenv('API_URL')
+    
 
     
     return app

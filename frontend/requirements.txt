@@ -1,3 +1,5 @@
-Flask
+Flask==2.1.1
 python-dotenv
 requests
+PyJWT
+json
