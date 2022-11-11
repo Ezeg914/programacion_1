@@ -66,7 +66,7 @@ def login():
     
 
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload', methods=['POST'])
 def add_poem():
     if request.cookies.get('access_token'):
         if request.method == 'POST':
@@ -108,8 +108,12 @@ def usuario():
         usuario = f.get_user(request.cookies.get('id'))
         usuario = json.loads(usuario.text)
         print(usuario)
+        poemas = f.get_poemas_by_id(request.cookies.get('id'))
+        print(poemas.text)
+        poemas = json.loads(poemas.text)
+  
 
-        return render_template('perfil.html', usuario=usuario)
+        return render_template('perfil.html', usuario=usuario, poemas=poemas["poemas"])
     else:
         return redirect(url_for('main.login'))
 
@@ -117,7 +121,14 @@ def usuario():
 
 
 
-
+@app.route('/delete/<id>')
+def delete(id):
+    if request.cookies.get('access_token'):
+        
+        f.delete_poema(id=id)
+        return redirect(url_for('main.usuario'))
+    else:
+        return redirect(url_for('main.login'))
 
 
 @app.route('/usuario/<int:id>')
@@ -126,15 +137,13 @@ def profile(id):
         usuario = f.get_user(id)
         print(usuario.text)
         usuario = json.loads(usuario.text)
-        
         print(usuario)
+        delete = f.delete_poema(id)
 
         return render_template('perfil.html', usuario=usuario)
         
     else:
         return redirect(url_for('main.login'))
-
-
 
 
 

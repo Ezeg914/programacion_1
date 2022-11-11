@@ -65,8 +65,8 @@ class Poemas(Resource):
                          per_page = int(value)
                     if key == "titulo":
                          poemas = poemas.filter(PoemaModel.titulo.like("%"+value+"%"))
-                    if key == "usuario":
-                         poemas = poemas.filter(PoemaModel.usuario == value)
+                    if key == "usuario_id":
+                         poemas = poemas.filter(PoemaModel.usuario_id == value)
                     if key == "created[gt]":
                          poemas = poemas.filter(PoemaModel.date >= datetime.strptime(value, '%d-%m-%Y'))
                     if key == "created[lt]":

@@ -4,7 +4,7 @@ import requests, json
 #--------------- Poems -----------------#
 
 #Obtengo los poemas del poeta ayudandome del id del mismo.
-def get_poemas_by_id(id, page = 1, perpage = 3):
+def get_poemas_by_id(id, page = 1, perpage = 10):
     api_url = f'{current_app.config["API_URL"]}/poemas'
     # Envio de la pagina y cuantos datos por pagina.
     data = {"page": page, "perpage": perpage, "usuario_id": id}
@@ -27,6 +27,11 @@ def get_poemas(api_url, page=1, perpage=3):
     data = {"page": page, "perpage": perpage}
     headers = get_headers()
     return requests.get(api_url, json=data, headers=headers)
+
+def delete_poema(id):
+    api_url = f'{current_app.config["API_URL"]}/poema/{id}'
+    headers = get_headers()
+    return requests.delete(api_url, headers=headers)
 
 #--------------- Poems -----------------#
 
