@@ -69,8 +69,8 @@ def get_username(usuario_id):
 #--------------- Calificaciones -----------------#
 
 #Obtener las calificaciones de un poema en especifico.
-def get_marks_by_poem_id(id):
-    api_url = f'{current_app.config["API_URL"]}/marks'
+def get_calificaciones_by_poema_id(id):
+    api_url = f'{current_app.config["API_URL"]}/calificaciones'
 
     data = {"poema_id": id}
     headers = get_headers()

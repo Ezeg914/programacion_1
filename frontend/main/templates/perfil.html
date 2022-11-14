@@ -36,8 +36,8 @@
             </ul>
           </div>
         </div>
-        {% for poema in poemas %}
         <section>
+          {% for poema in poemas %}
           <div class="card my-4 mx-4">
               <div class="row">
                   
@@ -54,8 +54,9 @@
                   </div>
               </div>
           </div>
+          {%endfor%}
       </section>
-      {%endfor%}
+      
       </div>
     </div>
   </body>

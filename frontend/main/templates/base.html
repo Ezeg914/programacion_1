@@ -59,6 +59,9 @@
                     </div>
                 </li>
                 </ul>
+                <li>
+                    <a class="btn"  href="{{url_for('main.logout')}}">Sign out</a>
+                </li>
                 {% else %}
 
                 <!-- Login & Registro -->
@@ -66,7 +69,7 @@
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Registrarse
                     </button>
-                    <a type="buttom" href="/login" class="btn">
+                    <a type="button" href="/login" class="btn">
                         Iniciar sesión
                     </a>
                 </div>

@@ -22,10 +22,13 @@ body {
   height: 56px;
 }
 
+
+
 .btn{
   background-color:rgb(168, 110, 202);
   margin: 5px;
   color: #fff;
+  border-radius: 25px;
 }
 
 .btn:hover{

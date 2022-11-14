@@ -9,15 +9,9 @@ app = Blueprint('main', __name__, url_prefix='/')
 
 @app.route('/')
 def index():
-    #if request.cookies.get('access_token'):
-
-
     data = { "page": 1,"per_page" : 10 }
-    #jwt = request.cookies.get("access_token")
 
     headers = f.get_headers(without_token=False)
-    #, "Authorization":"Bearer {}".format(jwt)
-    #print (jwt)
 
     response = requests.get(f'{current_app.config["API_URL"]}/poemas', json=data, headers=headers)
     print(response.status_code)
@@ -63,10 +57,16 @@ def login():
             return render_template("login.html")
     return render_template("login.html")
     
-    
+
+@app.route('/logout')
+def logout():
+    resp = make_response(redirect(url_for("main.index")))
+    resp.delete_cookie("access_token")
+    resp.delete_cookie("id")
+    return resp
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET','POST'])
 def add_poem():
     if request.cookies.get('access_token'):
         if request.method == 'POST':
@@ -145,6 +145,29 @@ def profile(id):
     else:
         return redirect(url_for('main.login'))
 
+@app.route('/calificaciones/<int:id>', methods=['GET','POST'])
+def cargar_calificaciones(id):
+    if request.cookies.get('access_token'):
+        if request.method == 'POST':
+            puntaje = request.form['puntaje']
+            comentario = request.form['comentario']
+            print(puntaje)
+            print(comentario)
+            usuario_id = f.get_id()
+            print(id)
+            data = {"puntaje": puntaje, "usuario_id": usuario_id,  "comentario": comentario, "poema_id": id}
+            print(data)
+            
+            headers = f.get_headers(without_token=False)
+            if comentario != "" and puntaje != "":
+                response = requests.post(f'{current_app.config["API_URL"]}/calificaciones', json=data, headers=headers)
+                print(response)
+        
+                response = f.json_load(response)
+                return redirect(url_for('main.poema_view', id=id))
+            else:
+                return redirect(url_for('main.poema_view'))
+
 
 
 
@@ -165,10 +188,10 @@ def poema_view(id):
     if request.cookies.get('access_token'):
         poema = f.get_poema(id)
         poema = json.loads(poema.text)
-        #resp = f.get_marks_by_poem_id(id)
-        #marks = json.loads(resp.text)
+        calificacion = f.get_calificaciones_by_poema_id(id)
+        calificacion = json.loads(calificacion.text)
         #Mostrar template
-        return render_template('poema.html', poema = poema)
+        return render_template('poema.html', poema = poema, calificacion = calificacion["calificaciones"])
     
     else:
         return redirect(url_for('main.login'))
