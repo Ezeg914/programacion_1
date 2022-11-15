@@ -71,19 +71,6 @@ class Poemas(Resource):
                          poemas = poemas.filter(PoemaModel.date >= datetime.strptime(value, '%d-%m-%Y'))
                     if key == "created[lt]":
                          poemas = poemas.filter(PoemaModel.date <= datetime.strptime(value, '%d-%m-%Y'))                    
-                    if key == "sort_by":
-                         if value == "calificaciones":
-                              poemas = poemas.outerjoin(PoemaModel.calificaciones).group_by(PoemaModel.id).order_by(func.avg(PoemaModel.score))
-                         if value == "calificaciones[desc]":
-                              poemas = poemas.outerjoin(PoemaModel.calificaciones).group_by(PoemaModel.id).order_by(func.avg(PoemaModel.score).desc())
-                         if value == "usuario":
-                              poemas = poemas.order_by(PoemaModel.usuario)
-                         if value == "usuario[desc]":
-                              poemas = poemas.order_by(PoemaModel.usuario.desc())
-                         if value == "date":
-                              poemas = poemas.order_by(PoemaModel.date)
-                         if value == "date[desc]":
-                              poemas = poemas.order_by(PoemaModel.date.desc())
                     
                     
           poemas = poemas.paginate(page, per_page, False, 30)

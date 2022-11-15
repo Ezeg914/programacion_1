@@ -121,12 +121,21 @@ def usuario():
 
 
 
-@app.route('/delete/<id>')
-def delete(id):
+@app.route('/delete/poema/<id>')
+def delete_poema(id):
     if request.cookies.get('access_token'):
         
         f.delete_poema(id=id)
         return redirect(url_for('main.usuario'))
+    else:
+        return redirect(url_for('main.login'))
+
+@app.route('/delete/calificacion/<id>')
+def delete_calificacion(id):
+    if request.cookies.get('access_token'):
+        print(id)
+        f.delete_comentario(id=id)
+        return redirect(url_for('main.index'))
     else:
         return redirect(url_for('main.login'))
 
@@ -138,7 +147,6 @@ def profile(id):
         print(usuario.text)
         usuario = json.loads(usuario.text)
         print(usuario)
-        delete = f.delete_poema(id)
 
         return render_template('perfil.html', usuario=usuario)
         
@@ -187,9 +195,12 @@ def add_poema():
 def poema_view(id):
     if request.cookies.get('access_token'):
         poema = f.get_poema(id)
+        print(poema.text)
         poema = json.loads(poema.text)
         calificacion = f.get_calificaciones_by_poema_id(id)
+        print(calificacion.text)
         calificacion = json.loads(calificacion.text)
+        
         #Mostrar template
         return render_template('poema.html', poema = poema, calificacion = calificacion["calificaciones"])
     

@@ -76,6 +76,12 @@ def get_calificaciones_by_poema_id(id):
     headers = get_headers()
     return requests.get(api_url, json = data, headers = headers)
 
+#Esliminar calificacion
+def delete_comentario(id):
+    api_url = f'{current_app.config["API_URL"]}/calificacion/{id}'
+    headers = get_headers()
+    return requests.delete(api_url, headers=headers)
+
 #--------------- Calificaciones -----------------#
 
 

@@ -69,6 +69,7 @@
                     
                 </section>
             </div>
+            {% for calificacion in calificacion %}
             <div class="card my-4 mx-4">
                <section>
                         <div class="container">
@@ -76,16 +77,20 @@
                                 
                                 <div class="be-comment">
                                     <form method="post" action="">
+
                                     <div class="be-comment-content">
                                         {% if request.cookies.get('access_token') %}
+                                        
                     
-                                        <a class="btn btn-sm" href="" >BORRAR</a>
+                                        
                                         <p>{{calificacion.usuario_id.nombre}}</p>
                                         <p class="be-comment-text">{{calificacion.comentario}}</p>
                                         <p>{{calificacion.puntaje}}</p>
+                                        <a class="btn btn-sm" href="{{url_for('main.delete_calificacion', id=calificacion.id)}}" >BORRAR</a>
+                                        
                                         {% else %}
-                                        <p class="be-comment-text">{{calificacion.comentario}}</p>
-                                        <p>{{calificacion.puntaje}}</p>
+                                        <p class="be-comment-text">{{calificacion.calificaciones.comentario}}</p>
+                                        <p>{{calificacion.calificaciones.puntaje}}</p>
                                         {% endif %}
                                     </div>
                                     </form> 
@@ -96,6 +101,7 @@
 
                 </section>
             </div>
+            {% endfor %}
             </article>
         </div>
     </main>

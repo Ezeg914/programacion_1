@@ -48,7 +48,7 @@
                           <p class="card-text">{{poema.body}}</p>
                           <p class="card-text"><small class="text-muted">{{poema.usuario_id.nombre}}</small></p>
                           <div id="btn-delete">
-                          <a class="btn btn-outline-dark btn-sm" href="{{url_for('main.delete', id=poema.id)}}" >BORRAR</a>
+                          <a class="btn btn-outline-dark btn-sm" href="{{url_for('main.delete_poema', id=poema.id)}}" >BORRAR</a>
                         </div>
                       </div>
                   </div>

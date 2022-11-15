@@ -13,6 +13,8 @@ class Poema(db.Model):
     
     usuario = db.relationship('Usuario',back_populates="poema",uselist=False,single_parent=True)
     calificacion = db.relationship('Calificacion',back_populates="poema",cascade = "all, delete-orphan")
+
+    
     
     def __repr__(self):
         return '<poema: %r %r %r %r >' % (self.titulo, self.usuario_id, self.body, self.date)    

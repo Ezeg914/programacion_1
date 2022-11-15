@@ -48,18 +48,10 @@ class Usuarios(Resource):
             filters = request.get_json().items()
             for key, value in filters:
                 if key == "nombre":
-                    nombre = nombre.filter(UsuarioModel.nombre.like("%"+ value +"%"))
+                    usuarios = usuarios.filter(UsuarioModel.nombre.like("%"+ value +"%"))
                 if key == "email":
-                    email = email.filter(UsuarioModel.email.like("%"+ value +"%"))
-                if key == "sort_by":
-                    if value == "nombre":
-                        nombre = nombre.order_by(UsuarioModel.nombre)
-                    if value == "nombre[des]":
-                        nombre = nombre.order_by(UsuarioModel.nombre.desc())
-                    if value == "email":
-                        email = email.order_by(UsuarioModel.email)
-                    if value == "email[desc]":
-                        email = email.order_by(UsuarioModel.email.desc())
+                    usuarios = usuarios.filter(UsuarioModel.email.like("%"+ value +"%"))
+                
         
         usuarios = usuarios.paginate(page, per_page, True, 30)
         return jsonify({
