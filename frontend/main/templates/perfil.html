@@ -14,7 +14,7 @@
       <div class="cols__container">
         <div class="left__col">
           <div class="img__container">
-            <img src="../static/images/DSC_6652.jpg" alt="Anna Smith" />
+            <img src="../static/images/descarga.jpg" />
             <span></span>
           </div>
           <h2>{{usuario.nombre}}</h2>
@@ -34,6 +34,7 @@
               <i class="fab fa-facebook"></i>
               <i class="fab fa-dribbble"></i>
             </ul>
+            <a class="btn btn-outline-dark btn-sm" href="{{url_for('main.delete_usuario', id=usuario.id)}}" >Delete Usuario</a>
           </div>
         </div>
         <section>
@@ -48,7 +49,10 @@
                           <p class="card-text">{{poema.body}}</p>
                           <p class="card-text"><small class="text-muted">{{poema.usuario_id.nombre}}</small></p>
                           <div id="btn-delete">
+                            {% if poema.usuario_id.id == request.cookies.get('id') %}
                           <a class="btn btn-outline-dark btn-sm" href="{{url_for('main.delete_poema', id=poema.id)}}" >BORRAR</a>
+                          <a class="btn btn-outline-dark btn-sm" href="{{url_for('main.edit_poema', id=poema.id)}}" >EDITAR</a>
+                          {% endif %}
                         </div>
                       </div>
                   </div>

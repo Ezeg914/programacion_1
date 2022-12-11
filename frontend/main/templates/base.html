@@ -62,13 +62,14 @@
                 <li>
                     <a class="btn"  href="{{url_for('main.logout')}}">Sign out</a>
                 </li>
-                {% else %}
+                
 
                 <!-- Login & Registro -->
                 <div class="d-flex">
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a type="button" href="/register" class="btn">
                         Registrarse
-                    </button>
+                    </a>
+                    {% else %}
                     <a type="button" href="/login" class="btn">
                         Iniciar sesión
                     </a>

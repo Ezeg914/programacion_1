@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div id="btn-post">
-                            <button class="btn btn-sm" type="submit"><a>submit</a></button>
+                            <button class="btn btn-sm" type="submit"><a>ACEPTAR</a></button>
                         </div>
                     </form>
                     
@@ -86,7 +86,11 @@
                                         <p>{{calificacion.usuario_id.nombre}}</p>
                                         <p class="be-comment-text">{{calificacion.comentario}}</p>
                                         <p>{{calificacion.puntaje}}</p>
+                                        {% if calificacion.usuario_id.id == request.cookies.get('id') %}
                                         <a class="btn btn-sm" href="{{url_for('main.delete_calificacion', id=calificacion.id)}}" >BORRAR</a>
+
+                                        <a class="btn btn-sm" href="{{url_for('main.edit_calificacion', id=calificacion.id)}}" >EDITAR</a>
+                                        {% endif %}
                                         
                                         {% else %}
                                         <p class="be-comment-text">{{calificacion.calificaciones.comentario}}</p>

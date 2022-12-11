@@ -33,6 +33,10 @@ def delete_poema(id):
     headers = get_headers()
     return requests.delete(api_url, headers=headers)
 
+def edit_poema(id, data):
+    api_url = f'{current_app.config["API_URL"]}/poema/{id}'
+    headers = get_headers()
+    return requests.put(api_url, json = data, headers = headers)
 #--------------- Poems -----------------#
 
 
@@ -63,6 +67,11 @@ def get_username(usuario_id):
     user = json.loads(response.text)
     return user["name"]
 
+def delete_user(id):
+    api_url = f'{current_app.config["API_URL"]}/usuario/{id}'
+    headers = get_headers()
+    return requests.delete(api_url, headers=headers)
+
 #--------------- User -----------------#
 
 
@@ -76,11 +85,20 @@ def get_calificaciones_by_poema_id(id):
     headers = get_headers()
     return requests.get(api_url, json = data, headers = headers)
 
+def get_calificacion(id):
+    api_url = f'{current_app.config["API_URL"]}/calificacion/{id}'
+    headers = get_headers()
+    return requests.get(api_url, headers=headers)
 #Esliminar calificacion
 def delete_comentario(id):
     api_url = f'{current_app.config["API_URL"]}/calificacion/{id}'
     headers = get_headers()
     return requests.delete(api_url, headers=headers)
+
+def edit_calificacion(id, data):
+    api_url = f'{current_app.config["API_URL"]}/calificacion/{id}'
+    headers = get_headers()
+    return requests.put(api_url, json = data, headers = headers)
 
 #--------------- Calificaciones -----------------#
 

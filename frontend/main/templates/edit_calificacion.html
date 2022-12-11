@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="../static/poema.css" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+
+<body>
+    <main class="d-flex flex-colum main-bg shadow">
+        <div class="banner">
+
+            <div class="card my-4 mx-4">
+                <section>
+
+                    <form method="post" id="form4" action="/edit_calificacion/{{calificacion.id}}">
+
+                        <div class="rating-system3">
+                            <h3>Give your Respect</h3>
+                            <input type="radio" name='puntaje' id="star5" value="5" />
+                            <label for="star5"></label>
+
+                            <input type="radio" name='puntaje' id="star4" value="4" />
+                            <label for="star4"></label>
+
+                            <input type="radio" name='puntaje' id="star3" value="3" />
+                            <label for="star3"></label>
+
+                            <input type="radio" name='puntaje' id="star2" value="2" />
+                            <label for="star2"></label>
+
+                            <input type="radio" name='puntaje' id="star1" value="1" />
+                            <label for="star1"></label>
+
+                            <div class="text"></div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <textarea class="form-input" name="comentario" placeholder="Your text">{{calificacion.comentario}}</textarea>
+                                </div>
+                            </div>
+                            <div id="btn-post">
+                                <button class="btn btn-sm" type="submit"><a>ACEPTAR</a></button>
+                            </div>
+                    </form>
+
+                </section>
+            </div>
+
+        </div>
+    </main>
+</body>
+{% endblock %}

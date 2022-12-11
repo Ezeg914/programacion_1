@@ -62,7 +62,7 @@ class Usuarios(Resource):
             
             })
     
-    #@admin_required
+    @admin_required
     def post(self):
         usuario = UsuarioModel.from_json(request.get_json())
         db.session.add(usuario)

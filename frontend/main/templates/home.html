@@ -20,7 +20,7 @@
                                         
                                         <h5 class="card-title">{{poema.titulo}}</h5>
                                         <p class="card-text">{{poema.body}}</p>
-                                        <p class="card-text"><small class="text-muted">{{poema.usuario_id.nombre}}</small></p>
+                                        <a class="card-text" href="{{url_for('main.profile',id=poema.usuario_id.id)}}"><small class="text-muted">{{poema.usuario_id.nombre}}</small></p>
                                         <a href="{{url_for('main.poema_view', id=poema.id)}}" class="btn btn-outline-dark btn-sm">Seguir leyendo</a>
                                     </div>
                                 </div>

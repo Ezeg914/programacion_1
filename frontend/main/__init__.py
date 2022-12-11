@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-from main.routes import main, poema, usuario
+from main.routes import main
 
 def create_app():
     app = Flask(__name__)

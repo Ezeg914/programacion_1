@@ -12,14 +12,14 @@
         <div class="banner">
             <article class="col-md-8">
             <section>
-                <form method="POST" id="form2" action="/upload">
+                <form method="POST" id="form2" action="/edit_poema/{{poema.id}}">
                     <div class="card">
                         <div class="poem-title">
                             <div class="poemtitle">
-                                <input class="form-control" type="poemtitle" name="titulo" placeholder="POEM TITLE..">
+                                <textarea class="form-control" type="poemtitle" name="titulo" placeholder="body">{{poema.titulo}}</textarea>
                             </div>
                             <div class="poembody">
-                                <textarea class="form-control" name="body" rows="3" placeholder="INSERT YOUR POEM HERE.."></textarea>
+                                <textarea class="form-control" name="body" rows="3" placeholder="body">{{poema.body}}</textarea>
                             </div>
                         </div>
                     </div>
